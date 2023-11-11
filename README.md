@@ -1,3 +1,6 @@
+[![Rust WebAssembly Project](https://github.com/ly-nld/wasm-counter/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/ly-nld/wasm-counter/actions/workflows/main.yml)
+[![pages-build-deployment](https://github.com/ly-nld/wasm-counter/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/ly-nld/wasm-counter/actions/workflows/pages/pages-build-deployment)
+
 # WebAssembly Counter Project
 
 This project demonstrates a simple WebAssembly program written in Rust. The program implements a counter that can be incremented and decremented.
@@ -34,7 +37,7 @@ Before you begin, ensure you have the following installed:
 4. Serve the project using a local server:
 
    ```bash
-   # You can use http-server or any other server of your choice, for example: python -m http.server
+   # You can use http-server or any other server of your choice, for example, python -m http.server
    npx http-server www
    ```
 
