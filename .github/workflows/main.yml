@@ -24,11 +24,11 @@ jobs:
         run: rustup target add wasm32-unknown-unknown
 
       - name: Install wasm-bindgen
-        run: cargo install wasm-bindgen-cli --version 0.2.77
+        run: cargo install wasm-bindgen-cli --version latest
 
       - name: Build WebAssembly
         run: |
-          cargo build --target wasm32-unknown-unknown
+          RUST_BACKTRACE=1 cargo build --target wasm32-unknown-unknown
           wasm-bindgen target/wasm32-unknown-unknown/debug/wasm_counter.wasm --out-dir www --web
 
   deploy:
