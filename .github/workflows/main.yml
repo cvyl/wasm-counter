@@ -1,0 +1,37 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up Rust
+        uses: actions/setup-rust@v1
+        with:
+          toolchain: stable
+
+      - name: Build WebAssembly
+        run: |
+          cargo build --target wasm32-unknown-unknown
+          wasm-bindgen target/wasm32-unknown-unknown/debug/wasm_counter.wasm --out-dir www --web
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          branch: main  # Deploy to the main branch
+          folder: www
