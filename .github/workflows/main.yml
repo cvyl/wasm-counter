@@ -1,22 +1,27 @@
-name: Build and Deploy
+name: Rust WebAssembly Project
 
 on:
   push:
     branches:
       - main
+  pull_request:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set Up Rust
+      - name: Setup Rust
         uses: ATiltedTree/setup-rust@v1.0.5
         with:
           rust-version: stable
+
+      - name: Install wasm32-unknown-unknown target
+        run: rustup target add wasm32-unknown-unknown
 
       - name: Build WebAssembly
         run: |
@@ -24,14 +29,17 @@ jobs:
           wasm-bindgen target/wasm32-unknown-unknown/debug/wasm_counter.wasm --out-dir www --web
 
   deploy:
+    name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
+    needs: build
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          branch: main  # Deploy to the main branch
-          folder: www
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./www
+
