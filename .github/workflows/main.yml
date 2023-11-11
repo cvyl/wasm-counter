@@ -16,7 +16,7 @@ jobs:
       - name: Set Up Rust
         uses: ATiltedTree/setup-rust@v1.0.5
         with:
-          toolchain: stable
+          rust-version: stable
 
       - name: Build WebAssembly
         run: |
